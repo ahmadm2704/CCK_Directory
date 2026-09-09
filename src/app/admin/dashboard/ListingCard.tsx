@@ -57,7 +57,7 @@ export default function ListingCard({
 
       {!editing ? (
         <>
-          <p className="text-sm text-muted">{listing.description}</p>
+          {listing.description && <p className="text-sm text-muted">{listing.description}</p>}
           <p className="mt-2 text-xs font-medium text-navy/70">
             {listing.contact_type}: {listing.contact_value}
           </p>

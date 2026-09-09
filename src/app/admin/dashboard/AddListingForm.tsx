@@ -93,10 +93,9 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
       </div>
       <textarea
         name="description"
-        required
         rows={2}
         maxLength={2000}
-        placeholder="Description"
+        placeholder="Description (optional)"
         className={`${inputClass} mt-3 w-full`}
         suppressHydrationWarning
       />

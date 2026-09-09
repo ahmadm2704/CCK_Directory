@@ -121,7 +121,9 @@ export default async function HomePage({
                     {listing.category}
                   </span>
                 </div>
-                <p className="line-clamp-3 flex-1 text-sm text-muted">{listing.description}</p>
+                {listing.description && (
+                  <p className="line-clamp-3 flex-1 text-sm text-muted">{listing.description}</p>
+                )}
                 <p className="mt-4 text-xs font-medium text-navy/70">
                   {contactLabel(listing.contact_type)} · tap to reveal
                 </p>

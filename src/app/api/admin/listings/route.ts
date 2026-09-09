@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
   }
 
   const { name, category, description, contact_type, contact_value } = body;
+  const descriptionValue = typeof description === "string" ? description.trim() : "";
 
   if (
     typeof name !== "string" ||
@@ -46,9 +47,7 @@ export async function POST(request: NextRequest) {
     name.length > 120 ||
     typeof category !== "string" ||
     !(CATEGORIES as readonly string[]).includes(category) ||
-    typeof description !== "string" ||
-    !description.trim() ||
-    description.length > 2000 ||
+    descriptionValue.length > 2000 ||
     typeof contact_type !== "string" ||
     !["phone", "whatsapp", "email"].includes(contact_type) ||
     typeof contact_value !== "string" ||
@@ -64,7 +63,7 @@ export async function POST(request: NextRequest) {
     .insert({
       name: name.trim(),
       category,
-      description: description.trim(),
+      description: descriptionValue,
       contact_type,
       contact_value: contact_value.trim(),
       status: "approved",

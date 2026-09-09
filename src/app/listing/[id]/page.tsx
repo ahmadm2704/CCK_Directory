@@ -33,9 +33,11 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
           </span>
         </div>
 
-        <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted">
-          {listing.description}
-        </p>
+        {listing.description && (
+          <p className="whitespace-pre-wrap text-sm leading-relaxed text-muted">
+            {listing.description}
+          </p>
+        )}
 
         <div className="mt-8 border-t border-card-border pt-6">
           <RevealContact id={listing.id} />

@@ -92,10 +92,9 @@ export default function SubmitPage() {
         </label>
 
         <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
-          Description
+          Description <span className="font-normal text-muted">(optional)</span>
           <textarea
             name="description"
-            required
             rows={4}
             maxLength={2000}
             className={inputClass}

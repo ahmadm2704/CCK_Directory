@@ -35,14 +35,13 @@ export async function POST(request: NextRequest) {
   }
 
   const { name, category, description, contact_type, contact_value, photo_url } = body;
+  const descriptionValue = typeof description === "string" ? description.trim() : "";
 
   if (
     typeof name !== "string" ||
     !name.trim() ||
     typeof category !== "string" ||
     !(CATEGORIES as readonly string[]).includes(category) ||
-    typeof description !== "string" ||
-    !description.trim() ||
     typeof contact_type !== "string" ||
     !["phone", "whatsapp", "email"].includes(contact_type) ||
     typeof contact_value !== "string" ||
@@ -51,7 +50,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
   }
 
-  if (name.length > 120 || description.length > 2000 || contact_value.length > 200) {
+  if (name.length > 120 || descriptionValue.length > 2000 || contact_value.length > 200) {
     return NextResponse.json({ error: "One or more fields are too long" }, { status: 400 });
   }
 
@@ -61,7 +60,7 @@ export async function POST(request: NextRequest) {
     .insert({
       name: name.trim(),
       category,
-      description: description.trim(),
+      description: descriptionValue,
       contact_type,
       contact_value: contact_value.trim(),
       photo_url: typeof photo_url === "string" && photo_url.trim() ? photo_url.trim() : null,

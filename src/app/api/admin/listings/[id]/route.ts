@@ -41,11 +41,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     update.category = body.category;
   }
   if (body.description !== undefined) {
-    if (
-      typeof body.description !== "string" ||
-      !body.description.trim() ||
-      body.description.length > 2000
-    ) {
+    if (typeof body.description !== "string" || body.description.length > 2000) {
       return NextResponse.json({ error: "Invalid description" }, { status: 400 });
     }
     update.description = body.description.trim();
