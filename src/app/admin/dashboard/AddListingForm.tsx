@@ -72,8 +72,15 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
       </div>
 
       <div className="grid gap-3 sm:grid-cols-2">
-        <input name="name" required maxLength={120} placeholder="Name / business" className={inputClass} />
-        <select name="category" required defaultValue="" className={inputClass}>
+        <input
+          name="name"
+          required
+          maxLength={120}
+          placeholder="Name / business"
+          className={inputClass}
+          suppressHydrationWarning
+        />
+        <select name="category" required defaultValue="" className={inputClass} suppressHydrationWarning>
           <option value="" disabled>
             Category
           </option>
@@ -91,9 +98,10 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
         maxLength={2000}
         placeholder="Description"
         className={`${inputClass} mt-3 w-full`}
+        suppressHydrationWarning
       />
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
-        <select name="contact_type" required defaultValue="phone" className={inputClass}>
+        <select name="contact_type" required defaultValue="phone" className={inputClass} suppressHydrationWarning>
           <option value="phone">Phone</option>
           <option value="whatsapp">WhatsApp</option>
           <option value="email">Email</option>
@@ -104,6 +112,7 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
           maxLength={200}
           placeholder="Contact details"
           className={inputClass}
+          suppressHydrationWarning
         />
       </div>
 
@@ -113,6 +122,7 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
         type="submit"
         disabled={submitting}
         className="mt-4 rounded-lg bg-navy px-4 py-2 text-sm font-semibold text-white transition hover:bg-navy-dark disabled:opacity-60"
+        suppressHydrationWarning
       >
         {submitting ? "Adding..." : "Add & publish"}
       </button>

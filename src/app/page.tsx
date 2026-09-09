@@ -38,7 +38,7 @@ export default async function HomePage({
     <div>
       <section className="relative overflow-hidden bg-navy text-white">
         <div className="pointer-events-none absolute inset-0 opacity-[0.06]">
-          <Image src="/brand/cck-crest.png" alt="" fill className="object-contain object-right" />
+          <Image src="/brand/cck-crest.png" alt="" fill priority className="object-contain object-right" />
         </div>
         <div className="relative mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
           <p className="font-display text-sm uppercase tracking-[0.35em] text-gold-light">
@@ -59,11 +59,13 @@ export default async function HomePage({
               defaultValue={q}
               placeholder="Search by name or description..."
               className="flex-1 rounded-lg border border-transparent bg-transparent px-3 py-2.5 text-sm text-navy-dark outline-none placeholder:text-muted"
+              suppressHydrationWarning
             />
             <select
               name="category"
               defaultValue={category}
               className="rounded-lg border border-card-border bg-white px-3 py-2.5 text-sm text-navy-dark outline-none"
+              suppressHydrationWarning
             >
               <option value="">All categories</option>
               {CATEGORIES.map((c) => (
@@ -75,6 +77,7 @@ export default async function HomePage({
             <button
               type="submit"
               className="rounded-lg bg-gold px-6 py-2.5 text-sm font-semibold text-navy-dark transition hover:bg-gold-light"
+              suppressHydrationWarning
             >
               Search
             </button>

@@ -49,6 +49,7 @@ export default function AdminLoginPage() {
             placeholder="Enter admin password"
             required
             className="rounded-lg border border-card-border bg-white px-3 py-2.5 text-sm text-navy-dark outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/20"
+            suppressHydrationWarning
           />
         </label>
         {error && <p className="mt-3 text-sm text-red-600">{error}</p>}
@@ -56,6 +57,7 @@ export default function AdminLoginPage() {
           type="submit"
           disabled={loading}
           className="mt-5 w-full rounded-lg bg-navy px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-dark disabled:opacity-60"
+          suppressHydrationWarning
         >
           {loading ? "Signing in..." : "Sign in"}
         </button>

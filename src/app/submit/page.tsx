@@ -74,12 +74,12 @@ export default function SubmitPage() {
       >
         <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
           Name / business
-          <input name="name" required maxLength={120} className={inputClass} />
+          <input name="name" required maxLength={120} className={inputClass} suppressHydrationWarning />
         </label>
 
         <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
           Category
-          <select name="category" required defaultValue="" className={inputClass}>
+          <select name="category" required defaultValue="" className={inputClass} suppressHydrationWarning>
             <option value="" disabled>
               Select a category
             </option>
@@ -93,13 +93,20 @@ export default function SubmitPage() {
 
         <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
           Description
-          <textarea name="description" required rows={4} maxLength={2000} className={inputClass} />
+          <textarea
+            name="description"
+            required
+            rows={4}
+            maxLength={2000}
+            className={inputClass}
+            suppressHydrationWarning
+          />
         </label>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
             Contact method
-            <select name="contact_type" required defaultValue="phone" className={inputClass}>
+            <select name="contact_type" required defaultValue="phone" className={inputClass} suppressHydrationWarning>
               <option value="phone">Phone</option>
               <option value="whatsapp">WhatsApp</option>
               <option value="email">Email</option>
@@ -114,6 +121,7 @@ export default function SubmitPage() {
               maxLength={200}
               placeholder="Number or email"
               className={inputClass}
+              suppressHydrationWarning
             />
           </label>
         </div>
@@ -124,6 +132,7 @@ export default function SubmitPage() {
           type="submit"
           disabled={submitting}
           className="rounded-lg bg-navy px-4 py-3 text-sm font-semibold text-white transition hover:bg-navy-dark disabled:opacity-60"
+          suppressHydrationWarning
         >
           {submitting ? "Submitting..." : "Submit for review"}
         </button>
