@@ -6,6 +6,7 @@ import { ContactType } from "@/lib/types";
 function contactLabel(contact_type: ContactType) {
   if (contact_type === "phone") return "Phone";
   if (contact_type === "whatsapp") return "WhatsApp";
+  if (contact_type === "phone_whatsapp") return "Phone & WhatsApp";
   return "Email";
 }
 

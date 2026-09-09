@@ -108,6 +108,7 @@ export default function SubmitPage() {
             <select name="contact_type" required defaultValue="phone" className={inputClass} suppressHydrationWarning>
               <option value="phone">Phone</option>
               <option value="whatsapp">WhatsApp</option>
+              <option value="phone_whatsapp">Phone &amp; WhatsApp (same number)</option>
               <option value="email">Email</option>
             </select>
           </label>

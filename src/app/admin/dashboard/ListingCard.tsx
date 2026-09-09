@@ -96,6 +96,7 @@ export default function ListingCard({
             >
               <option value="phone">Phone</option>
               <option value="whatsapp">WhatsApp</option>
+              <option value="phone_whatsapp">Phone &amp; WhatsApp (same number)</option>
               <option value="email">Email</option>
             </select>
             <input

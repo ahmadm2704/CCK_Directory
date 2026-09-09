@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     typeof category !== "string" ||
     !(CATEGORIES as readonly string[]).includes(category) ||
     typeof contact_type !== "string" ||
-    !["phone", "whatsapp", "email"].includes(contact_type) ||
+    !["phone", "whatsapp", "phone_whatsapp", "email"].includes(contact_type) ||
     typeof contact_value !== "string" ||
     !contact_value.trim()
   ) {

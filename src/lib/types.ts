@@ -1,5 +1,5 @@
 export type ListingStatus = "pending" | "approved" | "rejected";
-export type ContactType = "phone" | "whatsapp" | "email";
+export type ContactType = "phone" | "whatsapp" | "phone_whatsapp" | "email";
 
 export interface Listing {
   id: string;

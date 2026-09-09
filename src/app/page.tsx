@@ -8,6 +8,7 @@ export const revalidate = 0;
 function contactLabel(contact_type: Listing["contact_type"]) {
   if (contact_type === "phone") return "Phone";
   if (contact_type === "whatsapp") return "WhatsApp";
+  if (contact_type === "phone_whatsapp") return "Phone & WhatsApp";
   return "Email";
 }
 

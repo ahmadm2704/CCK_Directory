@@ -47,7 +47,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     update.description = body.description.trim();
   }
   if (body.contact_type !== undefined) {
-    if (!["phone", "whatsapp", "email"].includes(body.contact_type)) {
+    if (!["phone", "whatsapp", "phone_whatsapp", "email"].includes(body.contact_type)) {
       return NextResponse.json({ error: "Invalid contact type" }, { status: 400 });
     }
     update.contact_type = body.contact_type;

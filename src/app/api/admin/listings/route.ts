@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     !(CATEGORIES as readonly string[]).includes(category) ||
     descriptionValue.length > 2000 ||
     typeof contact_type !== "string" ||
-    !["phone", "whatsapp", "email"].includes(contact_type) ||
+    !["phone", "whatsapp", "phone_whatsapp", "email"].includes(contact_type) ||
     typeof contact_value !== "string" ||
     !contact_value.trim() ||
     contact_value.length > 200

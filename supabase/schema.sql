@@ -8,7 +8,7 @@ create table if not exists listings (
   name text not null,
   category text not null,
   description text not null,
-  contact_type text not null check (contact_type in ('phone', 'whatsapp', 'email')),
+  contact_type text not null check (contact_type in ('phone', 'whatsapp', 'phone_whatsapp', 'email')),
   contact_value text not null,
   photo_url text,
   status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
