@@ -55,23 +55,24 @@ export async function POST(request: NextRequest) {
   }
 
   const supabase = createPublicClient();
-  const { data, error } = await supabase
-    .from("listings")
-    .insert({
-      name: name.trim(),
-      category,
-      description: descriptionValue,
-      contact_type,
-      contact_value: contact_value.trim(),
-      photo_url: typeof photo_url === "string" && photo_url.trim() ? photo_url.trim() : null,
-      status: "pending",
-    })
-    .select("id")
-    .single();
+  // No .select() here: the row is inserted as "pending", and the anon SELECT
+  // policy only allows reading "approved" rows. Chaining .select() would make
+  // PostgREST also run a RETURNING clause, which is itself subject to that
+  // SELECT policy — since it can't see the pending row back, Postgres rolls
+  // back the whole insert and reports it as an RLS violation.
+  const { error } = await supabase.from("listings").insert({
+    name: name.trim(),
+    category,
+    description: descriptionValue,
+    contact_type,
+    contact_value: contact_value.trim(),
+    photo_url: typeof photo_url === "string" && photo_url.trim() ? photo_url.trim() : null,
+    status: "pending",
+  });
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ id: data.id }, { status: 201 });
+  return NextResponse.json({ ok: true }, { status: 201 });
 }
