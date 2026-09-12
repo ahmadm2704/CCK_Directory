@@ -22,6 +22,7 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
+  const [approvingAll, setApprovingAll] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -105,6 +106,34 @@ export default function AdminDashboardPage() {
     }
   }
 
+  async function approveAll() {
+    const pendingIds = listings.filter((l) => l.status === "pending").map((l) => l.id);
+    if (pendingIds.length === 0) return;
+    setApprovingAll(true);
+    try {
+      const results = await Promise.all(
+        pendingIds.map((id) =>
+          fetch(`/api/admin/listings/${id}`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status: "approved" }),
+          }).then((res) => ({ id, ok: res.ok }))
+        )
+      );
+      const approvedIds = new Set(results.filter((r) => r.ok).map((r) => r.id));
+      setListings((prev) =>
+        prev.map((l) => (approvedIds.has(l.id) ? { ...l, status: "approved" } : l))
+      );
+      if (approvedIds.size < pendingIds.length) {
+        setError("Some listings failed to approve. Please retry.");
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setApprovingAll(false);
+    }
+  }
+
   async function logout() {
     await fetch("/api/admin/logout", { method: "POST" });
     router.push("/admin");
@@ -145,20 +174,31 @@ export default function AdminDashboardPage() {
         <AddListingForm onCreated={(listing) => setListings((prev) => [listing, ...prev])} />
       </div>
 
-      <div className="mb-6 flex gap-2">
-        {TABS.map((t) => (
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-2">
+        <div className="flex gap-2">
+          {TABS.map((t) => (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
+                tab === t.key
+                  ? "bg-navy text-white"
+                  : "border border-card-border text-navy-dark hover:bg-black/5"
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+        {stats.pending > 0 && (
           <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
-              tab === t.key
-                ? "bg-navy text-white"
-                : "border border-card-border text-navy-dark hover:bg-black/5"
-            }`}
+            onClick={approveAll}
+            disabled={approvingAll}
+            className="rounded-full bg-emerald-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-emerald-700 disabled:opacity-60"
           >
-            {t.label}
+            {approvingAll ? "Approving..." : `Approve all (${stats.pending})`}
           </button>
-        ))}
+        )}
       </div>
 
       {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
