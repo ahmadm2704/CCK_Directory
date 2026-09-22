@@ -32,6 +32,8 @@ export default function ListingCard({
     description: listing.description,
     contact_type: listing.contact_type,
     contact_value: listing.contact_value,
+    kit_number: listing.kit_number ?? "",
+    house: listing.house ?? "",
   });
 
   async function save() {
@@ -58,6 +60,12 @@ export default function ListingCard({
       {!editing ? (
         <>
           {listing.description && <p className="text-sm text-muted">{listing.description}</p>}
+          {(listing.kit_number || listing.house) && (
+            <p className="mt-1 text-xs text-muted">
+              {listing.kit_number && <>Kit number: {listing.kit_number} </>}
+              {listing.house && <>· House: {listing.house}</>}
+            </p>
+          )}
           <p className="mt-2 text-xs font-medium text-navy/70">
             {listing.contact_type}: {listing.contact_value}
           </p>
@@ -86,6 +94,20 @@ export default function ListingCard({
             value={draft.description}
             onChange={(e) => setDraft((d) => ({ ...d, description: e.target.value }))}
           />
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              className={inputClass}
+              placeholder="Kit number"
+              value={draft.kit_number}
+              onChange={(e) => setDraft((d) => ({ ...d, kit_number: e.target.value }))}
+            />
+            <input
+              className={inputClass}
+              placeholder="House"
+              value={draft.house}
+              onChange={(e) => setDraft((d) => ({ ...d, house: e.target.value }))}
+            />
+          </div>
           <div className="grid grid-cols-2 gap-3">
             <select
               className={inputClass}

@@ -38,8 +38,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { name, category, description, contact_type, contact_value } = body;
+  const { name, category, description, contact_type, contact_value, kit_number, house } = body;
   const descriptionValue = typeof description === "string" ? description.trim() : "";
+  const kitNumberValue = typeof kit_number === "string" ? kit_number.trim() : "";
+  const houseValue = typeof house === "string" ? house.trim() : "";
 
   if (
     typeof name !== "string" ||
@@ -52,7 +54,9 @@ export async function POST(request: NextRequest) {
     !["phone", "whatsapp", "phone_whatsapp", "email"].includes(contact_type) ||
     typeof contact_value !== "string" ||
     !contact_value.trim() ||
-    contact_value.length > 200
+    contact_value.length > 200 ||
+    kitNumberValue.length > 50 ||
+    houseValue.length > 100
   ) {
     return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
   }
@@ -66,6 +70,8 @@ export async function POST(request: NextRequest) {
       description: descriptionValue,
       contact_type,
       contact_value: contact_value.trim(),
+      kit_number: kitNumberValue || null,
+      house: houseValue || null,
       status: "approved",
     })
     .select("*")

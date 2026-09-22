@@ -20,7 +20,7 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const update: Record<string, string> = {};
+  const update: Record<string, string | null> = {};
 
   if (body.status !== undefined) {
     if (!["approved", "rejected", "pending"].includes(body.status)) {
@@ -61,6 +61,18 @@ export async function PATCH(request: NextRequest, { params }: { params: Promise<
       return NextResponse.json({ error: "Invalid contact value" }, { status: 400 });
     }
     update.contact_value = body.contact_value.trim();
+  }
+  if (body.kit_number !== undefined) {
+    if (typeof body.kit_number !== "string" || body.kit_number.length > 50) {
+      return NextResponse.json({ error: "Invalid kit number" }, { status: 400 });
+    }
+    update.kit_number = body.kit_number.trim() || null;
+  }
+  if (body.house !== undefined) {
+    if (typeof body.house !== "string" || body.house.length > 100) {
+      return NextResponse.json({ error: "Invalid house" }, { status: 400 });
+    }
+    update.house = body.house.trim() || null;
   }
 
   if (Object.keys(update).length === 0) {

@@ -9,6 +9,8 @@ export interface Listing {
   contact_type: ContactType;
   contact_value: string;
   photo_url: string | null;
+  kit_number: string | null;
+  house: string | null;
   status: ListingStatus;
   created_at: string;
 }

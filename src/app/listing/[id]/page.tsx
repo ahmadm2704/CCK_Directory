@@ -10,7 +10,7 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
   const supabase = createPublicClient();
   const { data: listing } = await supabase
     .from("listings")
-    .select("id, name, category, description, created_at")
+    .select("id, name, category, description, kit_number, house, created_at")
     .eq("id", id)
     .eq("status", "approved")
     .single();
@@ -39,8 +39,32 @@ export default async function ListingPage({ params }: { params: Promise<{ id: st
           </p>
         )}
 
+        {(listing.kit_number || listing.house) && (
+          <div className="mt-4 flex flex-wrap gap-4 text-xs text-muted">
+            {listing.kit_number && (
+              <span>
+                <span className="font-medium text-navy-dark">Kit number:</span> {listing.kit_number}
+              </span>
+            )}
+            {listing.house && (
+              <span>
+                <span className="font-medium text-navy-dark">House:</span> {listing.house}
+              </span>
+            )}
+          </div>
+        )}
+
         <div className="mt-8 border-t border-card-border pt-6">
           <RevealContact id={listing.id} />
+        </div>
+
+        <div className="mt-4">
+          <Link
+            href={`/listing/${listing.id}/edit`}
+            className="text-xs font-medium text-navy/70 hover:text-navy hover:underline"
+          >
+            Is this your listing? Edit it
+          </Link>
         </div>
       </div>
     </div>

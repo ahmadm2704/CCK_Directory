@@ -25,6 +25,8 @@ export default function SubmitPage() {
       description: form.get("description"),
       contact_type: form.get("contact_type"),
       contact_value: form.get("contact_value"),
+      kit_number: form.get("kit_number"),
+      house: form.get("house"),
     };
 
     try {
@@ -101,6 +103,18 @@ export default function SubmitPage() {
             suppressHydrationWarning
           />
         </label>
+
+        <div className="grid gap-5 sm:grid-cols-2">
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
+            Kit number <span className="font-normal text-muted">(optional)</span>
+            <input name="kit_number" maxLength={50} className={inputClass} suppressHydrationWarning />
+          </label>
+
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">
+            House <span className="font-normal text-muted">(optional)</span>
+            <input name="house" maxLength={100} className={inputClass} suppressHydrationWarning />
+          </label>
+        </div>
 
         <div className="grid gap-5 sm:grid-cols-2">
           <label className="flex flex-col gap-1.5 text-sm font-medium text-navy-dark">

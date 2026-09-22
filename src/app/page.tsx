@@ -22,7 +22,7 @@ export default async function HomePage({
   const supabase = createPublicClient();
   let query = supabase
     .from("listings")
-    .select("id, name, category, description, contact_type, created_at")
+    .select("id, name, category, description, contact_type, kit_number, house, created_at")
     .eq("status", "approved")
     .order("created_at", { ascending: false });
 
@@ -124,6 +124,12 @@ export default async function HomePage({
                 </div>
                 {listing.description && (
                   <p className="line-clamp-3 flex-1 text-sm text-muted">{listing.description}</p>
+                )}
+                {(listing.kit_number || listing.house) && (
+                  <p className="mt-2 text-xs text-muted">
+                    {listing.kit_number && <>Kit no. {listing.kit_number} </>}
+                    {listing.house && <>· {listing.house}</>}
+                  </p>
                 )}
                 <p className="mt-4 text-xs font-medium text-navy/70">
                   {contactLabel(listing.contact_type)} · tap to reveal

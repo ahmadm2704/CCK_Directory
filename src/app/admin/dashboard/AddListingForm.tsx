@@ -22,6 +22,8 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
       description: form.get("description"),
       contact_type: form.get("contact_type"),
       contact_value: form.get("contact_value"),
+      kit_number: form.get("kit_number"),
+      house: form.get("house"),
     };
 
     try {
@@ -99,6 +101,10 @@ export default function AddListingForm({ onCreated }: { onCreated: (listing: Lis
         className={`${inputClass} mt-3 w-full`}
         suppressHydrationWarning
       />
+      <div className="mt-3 grid gap-3 sm:grid-cols-2">
+        <input name="kit_number" maxLength={50} placeholder="Kit number (optional)" className={inputClass} suppressHydrationWarning />
+        <input name="house" maxLength={100} placeholder="House (optional)" className={inputClass} suppressHydrationWarning />
+      </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-2">
         <select name="contact_type" required defaultValue="phone" className={inputClass} suppressHydrationWarning>
           <option value="phone">Phone</option>

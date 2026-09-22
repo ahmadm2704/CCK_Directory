@@ -11,6 +11,8 @@ create table if not exists listings (
   contact_type text not null check (contact_type in ('phone', 'whatsapp', 'phone_whatsapp', 'email')),
   contact_value text not null,
   photo_url text,
+  kit_number text,
+  house text,
   status text not null default 'pending' check (status in ('pending', 'approved', 'rejected')),
   created_at timestamptz not null default now()
 );

@@ -10,7 +10,9 @@ export async function GET(request: NextRequest) {
   const supabase = createPublicClient();
   let query = supabase
     .from("listings")
-    .select("id, name, category, description, contact_type, contact_value, photo_url, created_at")
+    .select(
+      "id, name, category, description, contact_type, contact_value, photo_url, kit_number, house, created_at"
+    )
     .eq("status", "approved")
     .order("created_at", { ascending: false });
 
@@ -34,8 +36,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
   }
 
-  const { name, category, description, contact_type, contact_value, photo_url } = body;
+  const { name, category, description, contact_type, contact_value, photo_url, kit_number, house } = body;
   const descriptionValue = typeof description === "string" ? description.trim() : "";
+  const kitNumberValue = typeof kit_number === "string" ? kit_number.trim() : "";
+  const houseValue = typeof house === "string" ? house.trim() : "";
 
   if (
     typeof name !== "string" ||
@@ -50,7 +54,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing or invalid fields" }, { status: 400 });
   }
 
-  if (name.length > 120 || descriptionValue.length > 2000 || contact_value.length > 200) {
+  if (
+    name.length > 120 ||
+    descriptionValue.length > 2000 ||
+    contact_value.length > 200 ||
+    kitNumberValue.length > 50 ||
+    houseValue.length > 100
+  ) {
     return NextResponse.json({ error: "One or more fields are too long" }, { status: 400 });
   }
 
@@ -67,6 +77,8 @@ export async function POST(request: NextRequest) {
     contact_type,
     contact_value: contact_value.trim(),
     photo_url: typeof photo_url === "string" && photo_url.trim() ? photo_url.trim() : null,
+    kit_number: kitNumberValue || null,
+    house: houseValue || null,
     status: "pending",
   });
 
