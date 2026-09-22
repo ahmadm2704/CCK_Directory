@@ -17,6 +17,7 @@ export interface Listing {
 
 export const CATEGORIES = [
   "Medical / Doctors",
+  "Dentistry",
   "Legal",
   "Business / Trade",
   "Real Estate",
