@@ -15,6 +15,15 @@ export interface Listing {
   created_at: string;
 }
 
+export interface WelfareEntry {
+  id: string;
+  name: string;
+  kit_number: string | null;
+  description: string;
+  status: ListingStatus;
+  created_at: string;
+}
+
 export const CATEGORIES = [
   "Medical / Doctors",
   "Dentistry",

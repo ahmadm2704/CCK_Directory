@@ -52,6 +52,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 Browse
               </Link>
               <Link
+                href="/welfare"
+                className="rounded-md px-3 py-1.5 text-white/85 transition hover:bg-white/10 hover:text-white"
+              >
+                Charity / Welfare
+              </Link>
+              <Link
                 href="/submit"
                 className="rounded-md bg-gold px-4 py-1.5 font-medium text-navy-dark shadow-sm transition hover:bg-gold-light"
               >

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useMemo } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Listing, ListingStatus } from "@/lib/types";
 import ListingCard from "./ListingCard";
@@ -148,12 +149,20 @@ export default function AdminDashboardPage() {
             Directory administration
           </h1>
         </div>
-        <button
-          onClick={logout}
-          className="rounded-md border border-card-border px-3 py-1.5 text-sm font-medium text-navy-dark hover:bg-black/5"
-        >
-          Log out
-        </button>
+        <div className="flex items-center gap-2">
+          <Link
+            href="/admin/welfare"
+            className="rounded-md border border-card-border px-3 py-1.5 text-sm font-medium text-navy-dark hover:bg-black/5"
+          >
+            Charity / Welfare
+          </Link>
+          <button
+            onClick={logout}
+            className="rounded-md border border-card-border px-3 py-1.5 text-sm font-medium text-navy-dark hover:bg-black/5"
+          >
+            Log out
+          </button>
+        </div>
       </div>
 
       <div className="mb-8 grid grid-cols-2 gap-3 sm:grid-cols-4">
